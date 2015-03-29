@@ -18,13 +18,27 @@
             {% for trip in recent_trips %}
                 <div class="col-md-4">
                     {{trip['start_location']['display_name']}}<br/>
-                    {{'%0.3f' % trip['fuel_volume_gal']|float}}<br/>
-                    ${{'%0.2f' % trip['fuel_cost_usd']|float}}<br/>
+                    {{trip['start_time']}}<br/>
+                    {{'%0.3f' % trip['fuel_volume_gal'] | float}}<br/>
+                    ${{'%0.2f' % trip['fuel_cost_usd'] | float}}<br/>
                     <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
                     <br/>
                 </div>
-
             {% endfor %}
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="">
+                <h4>Venmo Friends</h4>
+                {% for friend in friends %}
+                    {{friend['display_name']}}<br/>
+                {% endfor %}
+            </div>
+        </div>
+
+          
           
           {{display_name}}
           {{fuel_used}}
