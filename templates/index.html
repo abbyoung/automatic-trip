@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+    {% block content %}
+        
+        <h3 class="text-muted">Gas Splitter</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Share a ride, split the tab.</h1>
+        <p class="lead">This Automatic+Venmo integration makes it easy to share the cost of fuel with a friend.</p>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">Choose a trip</a></p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12">
+          <h4>Recent Trips</h4>
+            {% for trip in recent_trips %}
+                <div class="col-md-4">
+                    {{trip['start_location']['display_name']}}<br/>
+                    {{'%0.3f' % trip['fuel_volume_gal']|float}}<br/>
+                    ${{'%0.2f' % trip['fuel_cost_usd']|float}}<br/>
+                    <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
+                    <br/>
+                </div>
+
+            {% endfor %}
+          
+          {{display_name}}
+          {{fuel_used}}
+          {{fuel_cost}}
+
+        </div>
+
+      </div>
+
+      
+
+    {% endblock %}
+       
