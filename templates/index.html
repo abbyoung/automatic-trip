@@ -21,7 +21,7 @@
                     {{'%0.3f' % trip['fuel_volume_gal'] | float}} gallons<br/>
                     ${{'%0.2f' % trip['fuel_cost_usd'] | float}} trip cost<br/>
                     <div class="img_container">
-                      <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
+                      <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}&key={{map_key}}"/><br/>
                       <br/>
                       <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-path="{{trip['path']}}" data-trip-name="{{trip['start_location']['display_name']}}" data-toggle="modal" data-target="#payModal">
                         Charge

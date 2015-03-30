@@ -23,7 +23,7 @@ def index():
     friends = requests.get('https://sandbox-api.venmo.com/v1/users/974538061905920884/friends?access_token='+os.environ["VENMO_KEY"]+'&limit=1000')
     friends = friends.json()['data']
 
-    return render_template("index.html", recent_trips=recent_trips, friends=friends, venmo_key=os.environ['VENMO_KEY'])
+    return render_template("index.html", recent_trips=recent_trips, friends=friends, venmo_key=os.environ['VENMO_KEY'], map_key=os.environ['MAP_KEY'])
 
 @app.route("/payment", methods=["POST"])
 def payment(): 
