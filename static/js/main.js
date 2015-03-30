@@ -42,8 +42,9 @@
               // hide modal
               $('#payModal').modal('hide');
               // remove charge btn, replace with success
-              $('#'+tripID + ' .btn').html('Success!');
+              $('#'+tripID + ' button').html('Charged');
               $('#'+tripID + ' button').prop('disabled', true);
+              $('#'+tripID + ' button').addClass('charged');
 
                 });
             }

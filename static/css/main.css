@@ -50,3 +50,8 @@ img.friend_profile {
     font-size: 24px;
     border-radius: 0px;
 }
+
+.btn-primary.disabled, .btn-primary:disabled, .btn-primary[disabled].charged {
+    background-color: #4F8A10;
+    border-color: #4F8A10;
+}
