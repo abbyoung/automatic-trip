@@ -5,3 +5,16 @@ img.friend_profile {
     width: 50px;
     border-radius: 25px;
 }
+
+.modal-body ul {
+    padding-left: 0;
+}
+
+.modal-body li {
+    list-style-type: none;
+
+}
+
+.modal-body li a {
+    text-decoration: none;
+}

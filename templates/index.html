@@ -27,24 +27,6 @@
             </div>
         </div>
 
-
-        <div class="row">
-            <div class="">
-                <h4>Venmo Friends</h4>
-                {% for friend in friends %}
-                    <a href="https://sandbox-api.venmo.com/v1/users/{{friend['id']}}?access_token={{venmo_key}}">
-                    <img class="friend_profile" src="{{friend['profile_picture_url']}}"/>
-                    {{friend['display_name']}}</a><br/>
-                {% endfor %}
-            </div>
-        </div>
-
-          
-          
-          {{display_name}}
-          {{fuel_used}}
-          {{fuel_cost}}
-
         </div>
 
       </div>
@@ -60,14 +42,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">Charge a Friend</h4>
       </div>
-      <div class="modal-body">
-        ...
+      <div class="modal-body col-md-6 col-md-offset-6">
+       
+        <h4>Friends</h4>
+      
+        {% for friend in friends %}
+            <div class="radio">
+              <label>
+                <input type="radio" name="friends" id="{{friend['id']}}" value="{{friend['id']}}" checked>
+                <a href="https://sandbox-api.venmo.com/v1/users/{{friend['id']}}?access_token={{venmo_key}}">
+                <img class="friend_profile" src="{{friend['profile_picture_url']}}"/>
+            {{friend['display_name']}}</a>
+              </label>
+            </div>
+
+        {% endfor %}
+            
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">Charge $x.xx</button>
       </div>
     </div>
   </div>
