@@ -20,12 +20,13 @@
                     {{trip['start_time']}}<br/>
                     {{'%0.3f' % trip['fuel_volume_gal'] | float}}<br/>
                     ${{'%0.2f' % trip['fuel_cost_usd'] | float}}<br/>
-                    
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
-                    <br/>
-                    <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-toggle="modal" data-target="#payModal">
-                      Charge
-                    </button>
+                    <div class="img_container">
+                      <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
+                      <br/>
+                      <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-toggle="modal" data-target="#payModal">
+                        Charge
+                      </button>
+                    </div>
 
                 </div>
             {% endfor %}
@@ -120,9 +121,11 @@
           data: {'user_id': $('input[name="friends"]').val(), 'trip_id': tripID, 'price': $('input[name="optionsAmount"]').val()}
         })
         .done(function(data){
-          alert('done!');
           console.log(data);
-          // $('#payModal').modal('hide');
+          // hide modal
+          $('#payModal').modal('hide');
+          // remove charge btn, replace with success
+          $('#'+tripID + ' .btn').css('display', 'none');
         });
       });
     });
