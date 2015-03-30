@@ -1,9 +1,9 @@
 
 /* Friends List */
 img.friend_profile {
-    height: 50px;
-    width: 50px;
-    border-radius: 25px;
+    height: 25px;
+    width: 25px;
+    border-radius: 15px;
 }
 
 .modal-body ul {
@@ -17,4 +17,8 @@ img.friend_profile {
 
 .modal-body li a {
     text-decoration: none;
+}
+
+.col-md-offset-6 {
+    margin-left: 0px;
 }

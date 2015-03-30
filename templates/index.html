@@ -15,13 +15,18 @@
         <div class="col-lg-12">
           <h4>Recent Trips</h4>
             {% for trip in recent_trips %}
-                <div class="col-md-4">
+                <div class="col-md-4" id="{{trip['id']}}">
                     {{trip['start_location']['display_name']}}<br/>
                     {{trip['start_time']}}<br/>
                     {{'%0.3f' % trip['fuel_volume_gal'] | float}}<br/>
                     ${{'%0.2f' % trip['fuel_cost_usd'] | float}}<br/>
+                    
                     <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
                     <br/>
+                    <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-toggle="modal" data-target="#payModal">
+                      Charge
+                    </button>
+
                 </div>
             {% endfor %}
             </div>
@@ -31,45 +36,84 @@
 
       </div>
 
-      <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  Launch demo modal
-</button>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="payModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Charge a Friend</h4>
       </div>
-      <div class="modal-body col-md-6 col-md-offset-6">
-       
-        <h4>Friends</h4>
-      
-        {% for friend in friends %}
-            <div class="radio">
-              <label>
-                <input type="radio" name="friends" id="{{friend['id']}}" value="{{friend['id']}}" checked>
-                <a href="https://sandbox-api.venmo.com/v1/users/{{friend['id']}}?access_token={{venmo_key}}">
-                <img class="friend_profile" src="{{friend['profile_picture_url']}}"/>
-            {{friend['display_name']}}</a>
-              </label>
+      <div class="modal-body col-md-12">
+        <form>
+            <div class="col-md-6">
+               <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsAmount" value="" checked>
+                    Full price - 100%
+                  </label>
+                </div>
+
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="optionsAmount" value="">
+                    Split the tab - 50%
+                  </label>
+                </div>
+               
             </div>
 
-        {% endfor %}
+            <div class="col-md-6 col-md-offset-6">
+                <h4>Friends</h4>
+              
+                {% for friend in friends %}
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="friends" id="{{friend['id']}}" value="{{friend['id']}}">
+                        <a href="https://sandbox-api.venmo.com/v1/users/{{friend['id']}}?access_token={{venmo_key}}">
+                        <img class="friend_profile" src="{{friend['profile_picture_url']}}"/>
+                    {{friend['display_name']}}</a>
+                      </label>
+                    </div>
+
+                {% endfor %}
+            </div>
+       </form>
             
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Charge $x.xx</button>
+        <button type="button" class="btn btn-primary charge"></button>
       </div>
+
     </div>
   </div>
 </div>
 
-      
+  <script>
+    $('#payModal').on('show.bs.modal', function(e) {
+      var price = $(e.relatedTarget).data('dollars');
+      price = price.toFixed(2);
+      $('.charge').html('Charge $'+price);
+
+      var $defaultRadio = $('input:radio[name="optionsAmount"]').eq(0);
+      if($defaultRadio.is(':checked') === false) {
+        $defaultRadio.prop('checked', true);
+    }
+
+      $('input[name="optionsAmount"]').eq(0).attr('value', price);
+      $('input[name="optionsAmount"]').eq(1).attr('value', (price/2).toFixed(2));
+
+      $('input[name="optionsAmount"]').change(function(){
+        $('.charge').html('Charge $'+ $(this).val());
+      });
+
+     
+  });
+
+
+  </script>    
 
     {% endblock %}
        
