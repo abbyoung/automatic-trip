@@ -30,19 +30,26 @@
       // Submit payment to venmo API
       $('#payment').submit(function(e){
         e.preventDefault();
-        $.ajax({
-          method: "POST",
-          url: "/payment",
-          data: {'user_id': $('input[name="friends"]').val(), 'trip_id': tripID, 'price': $('input[name="optionsAmount"]').val()}
-        })
-        .done(function(data){
-          console.log(data);
-          // hide modal
-          $('#payModal').modal('hide');
-          // remove charge btn, replace with success
-          $('#'+tripID + ' .btn').html('Success!');
-          $('#'+tripID + ' button').prop('disabled', true);
+    
+        if ($("input:radio[name='friends']").is(":checked")) {
+            $.ajax({
+              method: "POST",
+              url: "/payment",
+              data: {'user_id': $('input[name="friends"]').val(), 'trip_id': tripID, 'price': $('input[name="optionsAmount"]').val()}
+            })
+            .done(function(data){
+              console.log(data);
+              // hide modal
+              $('#payModal').modal('hide');
+              // remove charge btn, replace with success
+              $('#'+tripID + ' .btn').html('Success!');
+              $('#'+tripID + ' button').prop('disabled', true);
 
+                });
+            }
+            else {
+                alert('Whoops! You forgot to choose a friend.')
+            }
         });
-      });
+        
     });
