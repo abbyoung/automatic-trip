@@ -41,6 +41,7 @@
           $('#payModal').modal('hide');
           // remove charge btn, replace with success
           $('#'+tripID + ' .btn').html('Success!');
+          $('#'+tripID + ' button').prop('disabled', true);
 
         });
       });

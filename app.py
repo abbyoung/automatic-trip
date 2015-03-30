@@ -27,7 +27,12 @@ def index():
 
 @app.route("/payment", methods=["POST"])
 def payment(): 
-    trip_id = request.form['trip_id']
+    try:
+        trip_id = request.form['trip_id']
+    except Exception, e:
+        print 'NO JSON OBJO YO'
+        flash('Couldn\'nt charge your friend. Try again!')
+        return 403
     # If using the real Venmo API, the following data would be passed
     # data = {'access_token': os.environ['VENMO_KEY'], 'user_id': request.form['user_id'], 'amount': '-0.20', 'note': 'Gas charge'}
     # But we have to hard-code sandbox user details to comply with sandbox API
