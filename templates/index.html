@@ -108,11 +108,13 @@
       price = price.toFixed(2);
       $('.charge').html('Charge $'+price);
 
-      // Make sure 100% is set to default
+      // Set radio button defaults when modal loads
       var $defaultRadio = $('input:radio[name="optionsAmount"]').eq(0);
       if($defaultRadio.is(':checked') === false) {
         $defaultRadio.prop('checked', true);
-    }
+      }
+      $('input:radio[name="friends"]').removeAttr('checked');
+      
       // Update Charge button based on radio button
       $('input[name="optionsAmount"]').eq(0).attr('value', price);
       $('input[name="optionsAmount"]').eq(1).attr('value', (price/2).toFixed(2));
@@ -121,6 +123,7 @@
         $('.charge').html('Charge $'+ $(this).val());
       });
 
+      // Submit payment to venmo API
       $('#payment').submit(function(e){
         e.preventDefault();
         $.ajax({
@@ -140,10 +143,6 @@
     });
 
     
-
-
-
-
   </script>    
 
     {% endblock %}
