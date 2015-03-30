@@ -21,7 +21,7 @@ def index():
     # Get dates of trips
     for i in range(len(recent_trips)):
         start_time = recent_trips[i]['start_time']
-        recent_trips[i]['start_time'] = (datetime.datetime.fromtimestamp(start_time/1000)).strftime('%a, %b. %d, %Y %H:%M %p')
+        recent_trips[i]['start_time'] = (datetime.datetime.fromtimestamp(start_time/1000)).strftime('%a, %b. %-d, %Y %I:%M %p')
 
     # Get friends from Venmo
     # Using sandbox api with personal Venmo ID. Add your own to see your friends!
