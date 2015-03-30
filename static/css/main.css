@@ -1,7 +1,15 @@
 h3 {
     font-size: 18px;
 }
+
 /* Friends List */
+
+.friends {
+    height: 295px;
+    overflow: scroll;
+    border: 1px solid #eee;
+    padding: 25px;
+}
 img.friend_profile {
     height: 25px;
     width: 25px;
