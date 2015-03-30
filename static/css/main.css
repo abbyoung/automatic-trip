@@ -1,4 +1,6 @@
-
+h3 {
+    font-size: 18px;
+}
 /* Friends List */
 img.friend_profile {
     height: 25px;
@@ -38,4 +40,5 @@ img.friend_profile {
     height:50px;
     opacity: .9;
     font-size: 24px;
+    border-radius: 0px;
 }
