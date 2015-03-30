@@ -23,7 +23,7 @@
                     
                     <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}"/><br/>
                     <br/>
-                    <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-toggle="modal" data-target="#payModal">
+                    <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-toggle="modal" data-target="#payModal">
                       Charge
                     </button>
 
@@ -93,6 +93,9 @@
   <script>
     $('#payModal').on('show.bs.modal', function(e) {
       var price = $(e.relatedTarget).data('dollars');
+      var tripID = $(e.relatedTarget).data('trip-id');
+    
+
       price = price.toFixed(2);
       $('.charge').html('Charge $'+price);
 
@@ -113,10 +116,12 @@
         e.preventDefault();
         $.ajax({
           method: "POST",
-          url: "/payment"
+          url: "/payment",
+          data: {'user_id': $('input[name="friends"]').val(), 'trip_id': tripID, 'price': $('input[name="optionsAmount"]').val()}
         })
         .done(function(data){
-          alert('done!')
+          alert('done!');
+          console.log(data);
           // $('#payModal').modal('hide');
         });
       });

@@ -26,8 +26,13 @@ def index():
     return render_template("index.html", recent_trips=recent_trips, friends=friends, venmo_key=os.environ['VENMO_KEY'])
 
 @app.route("/payment", methods=["POST"])
-def payment():
-    pass
+def payment(): 
+    trip_id = request.form['trip_id']
+    data = {'access_token': os.environ['VENMO_KEY'], 'user_id': request.form['user_id'], 'amount': "-"+(request.form['price']), 'note': 'Gas charge'}
+    r = requests.post('https://sandbox-api.venmo.com/v1/payments?access_token=', data=data)
+    payment = json.dumps(r.json())
+    return payment
+
 
 
 if __name__ == "__main__":
