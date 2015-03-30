@@ -46,7 +46,7 @@
         <h4 class="modal-title" id="myModalLabel">Charge a Friend</h4>
       </div>
       <div class="modal-body col-md-12">
-        <form>
+        <form id="payment">
             <div class="col-md-6">
                <div class="radio">
                   <label>
@@ -71,9 +71,8 @@
                     <div class="radio">
                       <label>
                         <input type="radio" name="friends" id="{{friend['id']}}" value="{{friend['id']}}">
-                        <a href="https://sandbox-api.venmo.com/v1/users/{{friend['id']}}?access_token={{venmo_key}}">
                         <img class="friend_profile" src="{{friend['profile_picture_url']}}"/>
-                    {{friend['display_name']}}</a>
+                    {{friend['display_name']}}
                       </label>
                     </div>
 
@@ -84,7 +83,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary charge"></button>
+        <button form="payment" type="submit" class="btn btn-primary charge"></button>
       </div>
 
     </div>
@@ -97,11 +96,12 @@
       price = price.toFixed(2);
       $('.charge').html('Charge $'+price);
 
+      // Make sure 100% is set to default
       var $defaultRadio = $('input:radio[name="optionsAmount"]').eq(0);
       if($defaultRadio.is(':checked') === false) {
         $defaultRadio.prop('checked', true);
     }
-
+      // Update Charge button based on radio button
       $('input[name="optionsAmount"]').eq(0).attr('value', price);
       $('input[name="optionsAmount"]').eq(1).attr('value', (price/2).toFixed(2));
 
@@ -109,8 +109,22 @@
         $('.charge').html('Charge $'+ $(this).val());
       });
 
-     
-  });
+      $('#payment').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+          method: "POST",
+          url: "/payment"
+        })
+        .done(function(data){
+          alert('done!')
+          // $('#payModal').modal('hide');
+        });
+      });
+    });
+
+    
+
+
 
 
   </script>    

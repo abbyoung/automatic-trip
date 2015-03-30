@@ -25,6 +25,9 @@ def index():
 
     return render_template("index.html", recent_trips=recent_trips, friends=friends, venmo_key=os.environ['VENMO_KEY'])
 
+@app.route("/payment", methods=["POST"])
+def payment():
+    pass
 
 
 if __name__ == "__main__":
