@@ -5,16 +5,13 @@ import requests, json, datetime
 from flask import Flask, render_template, redirect, request, session, url_for, flash
 
 
-
 app = Flask(__name__)
 
-# value = datetime.datetime.fromtimestamp(timestamp)
-# print(value.strftime('%Y-%m-%d %H:%M:%S'))
 
 @app.route("/")
 def index():
     # Get recent 10 trips from Automatic
-    # Using sandbox Automatic user
+    # Using Sandbox Automatic user
     try:
         r = requests.get('https://api.automatic.com/v1/trips?per_page=10', headers={'Authorization': 'token '+os.environ["AUTOMATIC_KEY"]})
         recent_trips = r.json()
@@ -27,7 +24,7 @@ def index():
         recent_trips[i]['start_time'] = (datetime.datetime.fromtimestamp(start_time/1000)).strftime('%a, %b. %-d, %Y %I:%M %p')
 
     # Get friends from Venmo
-    # Using sandbox api with personal Venmo ID. Add your own to see your friends!
+    # Using sandbox api with my personal Venmo ID. Add your own to see your friends!
     try:
         friends = requests.get('https://sandbox-api.venmo.com/v1/users/974538061905920884/friends?access_token='+os.environ["VENMO_KEY"]+'&limit=1000')
         friends = friends.json()['data']
