@@ -23,7 +23,7 @@
                     <div class="img_container">
                       <img src="https://maps.googleapis.com/maps/api/staticmap?size=200x200&path=weight:5%7Ccolor:blue%7Cenc:{{trip['path']}}&key={{map_key}}"/><br/>
                       <br/>
-                      <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-path="{{trip['path']}}" data-trip-name="{{trip['start_location']['display_name']}}" data-toggle="modal" data-target="#payModal">
+                      <button type="button" class="btn btn-primary btn-sm" data-dollars="{{trip['fuel_cost_usd']}}" data-trip-id="{{trip['id']}}" data-path="{{trip['path']}}&key={{map_key}}" data-trip-name="{{trip['start_location']['display_name']}}" data-toggle="modal" data-target="#payModal">
                         Charge
                       </button>
                     </div>
